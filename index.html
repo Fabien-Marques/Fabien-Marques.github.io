@@ -12,11 +12,11 @@
         <link rel="stylesheet" href="css/leaflet-measure.css">
         <style>
         #map {
-            width: 1364px;
-            height: 811px;
+            width: 1604px;
+            height: 813px;
         }
         </style>
-        <title>Suivi de la collecte d'indices biologiques de loup au cours de l'hiver 2023-2024, mis à jour le 13/11/2023 - OFB DIR PACA Corse, Réseau Loup-Lynx </title>
+        <title>Collecte d'indices biologiques de loup en PACA/AURA au cours de l'hiver 2023-24, mis à jour le 15/12/2023 - OFB DIR PACA-RLL</title>
     </head>
     <body>
         <div id="map">
@@ -35,9 +35,9 @@
         <script src="js/leaflet-measure.js"></script>
         <script src="js/proj4.js"></script>
         <script src="js/proj4leaflet.js"></script>
-        <script src="data/ZPP_ETE_2023_1.js"></script>
-        <script src="data/Maillagecollecte8indices_2.js"></script>
-        <script src="data/Maillagecollecte4indices_3.js"></script>
+        <script src="data/DPT_AURA_PACA_1.js"></script>
+        <script src="data/Maillage_Effort_2.js"></script>
+        <script src="data/Maillage_Effort_3.js"></script>
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -63,7 +63,7 @@
             continuousWorld: false,
             worldCopyJump: false, 
             zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[41.4966704583011,-4.037955550325438],[49.61284563149557,15.398275517438453]]);
+        }).fitBounds([[42.491257902837326,0.7219864220390972],[47.00222335595899,12.620190089574146]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -83,10 +83,10 @@
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
         }
-        map.createPane('pane_SCAN100MtropoleLAMB93102021_0');
-        map.getPane('pane_SCAN100MtropoleLAMB93102021_0').style.zIndex = 400;
-        var layer_SCAN100MtropoleLAMB93102021_0 = L.WMS.layer("https://wxs.ign.fr/gh45abnkri5dyh2nmj7tdgpp/geoportail/r/wms", "SCAN100_PYR-PNG_FXX_LAMB93", {
-            pane: 'pane_SCAN100MtropoleLAMB93102021_0',
+        map.createPane('pane_CartesIGN_0');
+        map.getPane('pane_CartesIGN_0').style.zIndex = 400;
+        var layer_CartesIGN_0 = L.WMS.layer("https://wxs.ign.fr/gh45abnkri5dyh2nmj7tdgpp/geoportail/r/wms", "GEOGRAPHICALGRIDSYSTEMS.MAPS", {
+            pane: 'pane_CartesIGN_0',
             format: 'image/png',
             uppercase: true,
             transparent: true,
@@ -97,8 +97,8 @@
             identify: false,
             attribution: '',
         });
-        map.addLayer(layer_SCAN100MtropoleLAMB93102021_0);
-        function pop_ZPP_ETE_2023_1(feature, layer) {
+        map.addLayer(layer_CartesIGN_0);
+        function pop_DPT_AURA_PACA_1(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (i in e.target._eventParents) {
@@ -116,39 +116,45 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2"><strong>polygone_2</strong><br />' + (feature.properties['polygone_2'] !== null ? autolinker.link(feature.properties['polygone_2'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['code_insee'] !== null ? autolinker.link(feature.properties['code_insee'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['nom'] !== null ? autolinker.link(feature.properties['nom'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_ZPP_ETE_2023_1_0() {
+        function style_DPT_AURA_PACA_1_0() {
             return {
-                pane: 'pane_ZPP_ETE_2023_1',
+                pane: 'pane_DPT_AURA_PACA_1',
                 opacity: 1,
-                color: 'rgba(1,26,255,1.0)',
+                color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
-                lineCap: 'square',
-                lineJoin: 'bevel',
-                weight: 3.0,
-                fillOpacity: 0,
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 3.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(243,166,178,0.0)',
                 interactive: true,
             }
         }
-        map.createPane('pane_ZPP_ETE_2023_1');
-        map.getPane('pane_ZPP_ETE_2023_1').style.zIndex = 401;
-        map.getPane('pane_ZPP_ETE_2023_1').style['mix-blend-mode'] = 'normal';
-        var layer_ZPP_ETE_2023_1 = new L.geoJson(json_ZPP_ETE_2023_1, {
+        map.createPane('pane_DPT_AURA_PACA_1');
+        map.getPane('pane_DPT_AURA_PACA_1').style.zIndex = 401;
+        map.getPane('pane_DPT_AURA_PACA_1').style['mix-blend-mode'] = 'normal';
+        var layer_DPT_AURA_PACA_1 = new L.geoJson(json_DPT_AURA_PACA_1, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_ZPP_ETE_2023_1',
-            layerName: 'layer_ZPP_ETE_2023_1',
-            pane: 'pane_ZPP_ETE_2023_1',
-            onEachFeature: pop_ZPP_ETE_2023_1,
-            style: style_ZPP_ETE_2023_1_0,
+            dataVar: 'json_DPT_AURA_PACA_1',
+            layerName: 'layer_DPT_AURA_PACA_1',
+            pane: 'pane_DPT_AURA_PACA_1',
+            onEachFeature: pop_DPT_AURA_PACA_1,
+            style: style_DPT_AURA_PACA_1_0,
         });
-        bounds_group.addLayer(layer_ZPP_ETE_2023_1);
-        function pop_Maillagecollecte8indices_2(feature, layer) {
+        bounds_group.addLayer(layer_DPT_AURA_PACA_1);
+        map.addLayer(layer_DPT_AURA_PACA_1);
+        function pop_Maillage_Effort_2(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     for (i in e.target._eventParents) {
@@ -169,172 +175,142 @@
                         <td colspan="2"><strong>CODE_10KM</strong><br />' + (feature.properties['CODE_10KM'] !== null ? autolinker.link(feature.properties['CODE_10KM'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Nb_Indice</th>\
-                        <td>' + (feature.properties['Nb_Indice'] !== null ? autolinker.link(feature.properties['Nb_Indice'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Nb_Indices</th>\
+                        <td>' + (feature.properties['Nb_Indices'] !== null ? autolinker.link(feature.properties['Nb_Indices'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_Maillagecollecte8indices_2_0(feature) {
-            if (feature.properties['Nb_Indice'] >= 0.000000 && feature.properties['Nb_Indice'] <= 2.000000 ) {
+        function style_Maillage_Effort_2_0(feature) {
+            if (feature.properties['Nb_Indices'] >= 0.000000 && feature.properties['Nb_Indices'] <= 0.000000 ) {
                 return {
-                pane: 'pane_Maillagecollecte8indices_2',
+                pane: 'pane_Maillage_Effort_2',
                 opacity: 1,
-                color: 'rgba(8,110,8,0.5)',
+                color: 'rgba(250,196,1,0.5)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
-                weight: 3.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(255,245,240,0.0)',
-                interactive: true,
-            }
-            }
-            if (feature.properties['Nb_Indice'] >= 2.000000 && feature.properties['Nb_Indice'] <= 4.000000 ) {
-                return {
-                pane: 'pane_Maillagecollecte8indices_2',
-                opacity: 1,
-                color: 'rgba(8,110,8,0.5)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 3.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(252,190,165,0.5)',
-                interactive: true,
-            }
-            }
-            if (feature.properties['Nb_Indice'] >= 4.000000 && feature.properties['Nb_Indice'] <= 6.000000 ) {
-                return {
-                pane: 'pane_Maillagecollecte8indices_2',
-                opacity: 1,
-                color: 'rgba(8,110,8,0.5)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 3.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(251,112,80,0.5)',
-                interactive: true,
-            }
-            }
-            if (feature.properties['Nb_Indice'] >= 6.000000 && feature.properties['Nb_Indice'] <= 8.000000 ) {
-                return {
-                pane: 'pane_Maillagecollecte8indices_2',
-                opacity: 1,
-                color: 'rgba(8,110,8,0.5)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 3.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(211,32,32,0.5)',
-                interactive: true,
-            }
-            }
-            if (feature.properties['Nb_Indice'] >= 8.000000 && feature.properties['Nb_Indice'] <= 100.000000 ) {
-                return {
-                pane: 'pane_Maillagecollecte8indices_2',
-                opacity: 1,
-                color: 'rgba(8,110,8,0.5)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 3.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(103,0,13,0.5)',
-                interactive: true,
-            }
-            }
-        }
-        map.createPane('pane_Maillagecollecte8indices_2');
-        map.getPane('pane_Maillagecollecte8indices_2').style.zIndex = 402;
-        map.getPane('pane_Maillagecollecte8indices_2').style['mix-blend-mode'] = 'normal';
-        var layer_Maillagecollecte8indices_2 = new L.geoJson(json_Maillagecollecte8indices_2, {
-            attribution: '',
-            interactive: true,
-            dataVar: 'json_Maillagecollecte8indices_2',
-            layerName: 'layer_Maillagecollecte8indices_2',
-            pane: 'pane_Maillagecollecte8indices_2',
-            onEachFeature: pop_Maillagecollecte8indices_2,
-            style: style_Maillagecollecte8indices_2_0,
-        });
-        bounds_group.addLayer(layer_Maillagecollecte8indices_2);
-        map.addLayer(layer_Maillagecollecte8indices_2);
-        function pop_Maillagecollecte4indices_3(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    for (i in e.target._eventParents) {
-                        e.target._eventParents[i].resetStyle(e.target);
-                    }
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
-            var popupContent = '<table>\
-                    <tr>\
-                        <td colspan="2"><strong>CODE_10KM</strong><br />' + (feature.properties['CODE_10KM'] !== null ? autolinker.link(feature.properties['CODE_10KM'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">Nb_Indice</th>\
-                        <td>' + (feature.properties['Nb_Indice'] !== null ? autolinker.link(feature.properties['Nb_Indice'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                </table>';
-            layer.bindPopup(popupContent, {maxHeight: 400});
-        }
-
-        function style_Maillagecollecte4indices_3_0(feature) {
-            if (feature.properties['Nb_Indice'] >= 0.000000 && feature.properties['Nb_Indice'] <= 2.000000 ) {
-                return {
-                pane: 'pane_Maillagecollecte4indices_3',
-                opacity: 1,
-                color: 'rgba(31,120,180,0.5)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 3.0, 
+                weight: 2.0, 
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(249,196,1,0.0)',
                 interactive: true,
             }
             }
-            if (feature.properties['Nb_Indice'] >= 2.000000 && feature.properties['Nb_Indice'] <= 4.000000 ) {
+            if (feature.properties['Nb_Indices'] >= 0.000000 && feature.properties['Nb_Indices'] <= 200.000000 ) {
                 return {
-                pane: 'pane_Maillagecollecte4indices_3',
+                pane: 'pane_Maillage_Effort_2',
                 opacity: 1,
-                color: 'rgba(31,120,180,0.5)',
+                color: 'rgba(250,196,1,0.5)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
-                weight: 3.0, 
+                weight: 2.0, 
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(31,120,180,0.5)',
                 interactive: true,
             }
             }
-            if (feature.properties['Nb_Indice'] >= 4.000000 && feature.properties['Nb_Indice'] <= 100.000000 ) {
+        }
+        map.createPane('pane_Maillage_Effort_2');
+        map.getPane('pane_Maillage_Effort_2').style.zIndex = 402;
+        map.getPane('pane_Maillage_Effort_2').style['mix-blend-mode'] = 'normal';
+        var layer_Maillage_Effort_2 = new L.geoJson(json_Maillage_Effort_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Maillage_Effort_2',
+            layerName: 'layer_Maillage_Effort_2',
+            pane: 'pane_Maillage_Effort_2',
+            onEachFeature: pop_Maillage_Effort_2,
+            style: style_Maillage_Effort_2_0,
+        });
+        bounds_group.addLayer(layer_Maillage_Effort_2);
+        map.addLayer(layer_Maillage_Effort_2);
+        function pop_Maillage_Effort_3(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>CODE_10KM</strong><br />' + (feature.properties['CODE_10KM'] !== null ? autolinker.link(feature.properties['CODE_10KM'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nb_Indices</th>\
+                        <td>' + (feature.properties['Nb_Indices'] !== null ? autolinker.link(feature.properties['Nb_Indices'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Maillage_Effort_3_0(feature) {
+            if (feature.properties['Nb_Indices'] >= 0.000000 && feature.properties['Nb_Indices'] <= 0.000000 ) {
                 return {
-                pane: 'pane_Maillagecollecte4indices_3',
+                pane: 'pane_Maillage_Effort_3',
                 opacity: 1,
-                color: 'rgba(31,120,180,0.5)',
+                color: 'rgba(8,110,8,0.5)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
-                weight: 3.0, 
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,245,240,0.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Nb_Indices'] >= 0.000000 && feature.properties['Nb_Indices'] <= 5.000000 ) {
+                return {
+                pane: 'pane_Maillage_Effort_3',
+                opacity: 1,
+                color: 'rgba(8,110,8,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(238,134,110,0.5)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Nb_Indices'] >= 5.000000 && feature.properties['Nb_Indices'] <= 8.000000 ) {
+                return {
+                pane: 'pane_Maillage_Effort_3',
+                opacity: 1,
+                color: 'rgba(8,110,8,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(211,32,32,0.5)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Nb_Indices'] >= 8.000000 && feature.properties['Nb_Indices'] <= 100.000000 ) {
+                return {
+                pane: 'pane_Maillage_Effort_3',
+                opacity: 1,
+                color: 'rgba(8,110,8,0.5)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(103,0,13,0.5)',
@@ -342,20 +318,20 @@
             }
             }
         }
-        map.createPane('pane_Maillagecollecte4indices_3');
-        map.getPane('pane_Maillagecollecte4indices_3').style.zIndex = 403;
-        map.getPane('pane_Maillagecollecte4indices_3').style['mix-blend-mode'] = 'normal';
-        var layer_Maillagecollecte4indices_3 = new L.geoJson(json_Maillagecollecte4indices_3, {
+        map.createPane('pane_Maillage_Effort_3');
+        map.getPane('pane_Maillage_Effort_3').style.zIndex = 403;
+        map.getPane('pane_Maillage_Effort_3').style['mix-blend-mode'] = 'normal';
+        var layer_Maillage_Effort_3 = new L.geoJson(json_Maillage_Effort_3, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Maillagecollecte4indices_3',
-            layerName: 'layer_Maillagecollecte4indices_3',
-            pane: 'pane_Maillagecollecte4indices_3',
-            onEachFeature: pop_Maillagecollecte4indices_3,
-            style: style_Maillagecollecte4indices_3_0,
+            dataVar: 'json_Maillage_Effort_3',
+            layerName: 'layer_Maillage_Effort_3',
+            pane: 'pane_Maillage_Effort_3',
+            onEachFeature: pop_Maillage_Effort_3,
+            style: style_Maillage_Effort_3_0,
         });
-        bounds_group.addLayer(layer_Maillagecollecte4indices_3);
-        map.addLayer(layer_Maillagecollecte4indices_3);
+        bounds_group.addLayer(layer_Maillage_Effort_3);
+        map.addLayer(layer_Maillage_Effort_3);
             var title = new L.Control();
             title.onAdd = function (map) {
                 this._div = L.DomUtil.create('div', 'info');
@@ -363,7 +339,7 @@
                 return this._div;
             };
             title.update = function () {
-                this._div.innerHTML = '<h2>Suivi de la collecte d\'indices biologiques de loup au cours de l\'hiver 2023-2024, mis à jour le 13/11/2023 - OFB DIR PACA Corse, Réseau Loup-Lynx </h2>';
+                this._div.innerHTML = '<h2>Collecte d\'indices biologiques de loup en PACA/AURA au cours de l\'hiver 2023-24, mis à jour le 15/12/2023 - OFB DIR PACA-RLL</h2>';
             };
             title.addTo(map);
             var abstract = new L.Control({'position':'topleft'});
@@ -384,7 +360,7 @@
                 abstract.show = function () {
                     this._div.classList.remove("abstract");
                     this._div.classList.add("abstractUncollapsed");
-                    this._div.innerHTML = '1/ RESUME:<br />Cette carte représente le nombre d\'indices biologiques collectés ET enregistrés dans la base de données BILL entre le 1er novembre 2023 et le 13 novembre 2023. <br /><br />2/ RAPPEL DU PROTOCOLE:<br />Période de prospection : 1er novembre 2023 au 31 mars 2024<br /><br />Objectifs d\'échantillonnage:<br />-> 8 indices biologiques par maille de présence régulière (ZPP meute)<br />-> 4 indices biologiques par maille de présence irrégulière (ZPP non meute)<br /><br />Prochaine tournée des congélateurs : fin décembre/début janvier<br /><br />SACHETS DES ECHANTILLONS BIOLOGIQUES OBLIGATOIREMENT REFERENCES AVEC LE N° BILL';
+                    this._div.innerHTML = '<br />1/ RESUME:<br />Cette carte représente le nombre d\'indices biologiques* collectés ET enregistrés dans la base de données BILL entre le 1er novembre 2023 et le 15 decembre 2023.<br /><br />2/ RAPPEL DU PROTOCOLE:<br />Période de prospection : 1er novembre 2023 au 31 mars 2024<br /><br />Objectifs d\'échantillonnage:<br />-> 6-8 indices biologiques par maille de présence régulière (ZPP meute)<br />-> 2 indices biologiques par maille de présence irrégulière (ZPP non meute)<br /><br />Prochaine session génétique: fin-janvier 2024<br /><br />SACHETS DES ECHANTILLONS BIOLOGIQUES OBLIGATOIREMENT REFERENCES AVEC LE N° BILL<br /><br />*indices biologiques: urine, sang, dépouille, fèces, poil<br />';
             };
             abstract.addTo(map);
         var osmGeocoder = new L.Control.Geocoder({
@@ -398,18 +374,8 @@
         document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
         .title += 'Search for a place';
         var baseMaps = {};
-        L.control.layers(baseMaps,{'Maillage collecte 4 indices<br /><table><tr><td style="text-align: center;"><img src="legend/Maillagecollecte4indices_3_020.png" /></td><td>0-2</td></tr><tr><td style="text-align: center;"><img src="legend/Maillagecollecte4indices_3_241.png" /></td><td>2-4</td></tr><tr><td style="text-align: center;"><img src="legend/Maillagecollecte4indices_3_42.png" /></td><td>=/>4</td></tr></table>': layer_Maillagecollecte4indices_3,'Maillage collecte 8 indices<br /><table><tr><td style="text-align: center;"><img src="legend/Maillagecollecte8indices_2_020.png" /></td><td>0 - 2</td></tr><tr><td style="text-align: center;"><img src="legend/Maillagecollecte8indices_2_241.png" /></td><td>2 - 4</td></tr><tr><td style="text-align: center;"><img src="legend/Maillagecollecte8indices_2_462.png" /></td><td>4 - 6</td></tr><tr><td style="text-align: center;"><img src="legend/Maillagecollecte8indices_2_683.png" /></td><td>6 - 8</td></tr><tr><td style="text-align: center;"><img src="legend/Maillagecollecte8indices_2_84.png" /></td><td>=/>8</td></tr></table>': layer_Maillagecollecte8indices_2,'<img src="legend/ZPP_ETE_2023_1.png" /> ZPP_ETE_2023': layer_ZPP_ETE_2023_1,"SCAN100 Métropole LAMB93 10-2021": layer_SCAN100MtropoleLAMB93102021_0,},{collapsed:false}).addTo(map);
+        L.control.layers(baseMaps,{'Maillage_Effort +<br /><table><tr><td style="text-align: center;"><img src="legend/Maillage_Effort_3_00.png" /></td><td>0</td></tr><tr><td style="text-align: center;"><img src="legend/Maillage_Effort_3_151.png" /></td><td>1 - 5</td></tr><tr><td style="text-align: center;"><img src="legend/Maillage_Effort_3_682.png" /></td><td>6 - 8</td></tr><tr><td style="text-align: center;"><img src="legend/Maillage_Effort_3_83.png" /></td><td>=/>8</td></tr></table>': layer_Maillage_Effort_3,'Maillage_Effort -<br /><table><tr><td style="text-align: center;"><img src="legend/Maillage_Effort_2_00.png" /></td><td>0</td></tr><tr><td style="text-align: center;"><img src="legend/Maillage_Effort_2_121.png" /></td><td>1 - 2</td></tr></table>': layer_Maillage_Effort_2,'<img src="legend/DPT_AURA_PACA_1.png" /> DPT_AURA_PACA': layer_DPT_AURA_PACA_1,"Cartes IGN": layer_CartesIGN_0,},{collapsed:false}).addTo(map);
         setBounds();
-        resetLabels([layer_ZPP_ETE_2023_1]);
-        map.on("zoomend", function(){
-            resetLabels([layer_ZPP_ETE_2023_1]);
-        });
-        map.on("layeradd", function(){
-            resetLabels([layer_ZPP_ETE_2023_1]);
-        });
-        map.on("layerremove", function(){
-            resetLabels([layer_ZPP_ETE_2023_1]);
-        });
         </script>
     </body>
 </html>
